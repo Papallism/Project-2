@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 struct Customer {
@@ -11,7 +12,5 @@ struct Customer {
 
 int main()
 {
-
-
     return 0;
 }
