@@ -2,6 +2,9 @@
 #include <cstring>
 using namespace std;
 
+int totCustomers = 0;
+const int MAX = 100;
+
 struct Account {
     int number;
     char type[20];
@@ -16,7 +19,69 @@ struct Customer {
     int totAccounts;
 };
 
+void readCustomer(Customer []);
+
 int main()
 {
+    Customer customers[MAX];
+    readCustomer(customers);
+    readCustomer(customers);
+
     return 0;
 }
+
+void readCustomer(Customer cust[MAX])
+{
+    bool check = true;
+    cout << "Please enter customer name: ";
+    cin.ignore();
+    cin.getline(cust[totCustomers].name, 30);
+    cout << "Please enter customer address: ";
+    cin.getline(cust[totCustomers].address, 50);
+    do
+    {
+        cout << "Please enter customer ID: ";
+        cin >> cust[totCustomers].id;
+        for(int i = 0; i < totCustomers; i++)
+        {
+            if(cust[totCustomers].id == cust[i].id)
+            {
+                cout << "The ID entered is already in use.\n";
+                i = totCustomers;
+                check = true;
+            }
+            else
+                check = false;
+        }
+    }while(check && totCustomers > 1);
+    totCustomers++;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
