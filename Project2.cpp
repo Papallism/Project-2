@@ -33,7 +33,7 @@ int main()
 void readCustomer(Customer cust[MAX])
 {
     bool check = true;
-    cout << "Please enter customer name: ";
+    cout << "\nPlease enter customer name: ";
     cin.ignore();
     cin.getline(cust[totCustomers].name, 30);
     cout << "Please enter customer address: ";
@@ -44,7 +44,7 @@ void readCustomer(Customer cust[MAX])
         cin >> cust[totCustomers].id;
         for(int i = 0; i < totCustomers; i++)
         {
-            if(cust[totCustomers].id == cust[i].id)
+            if(strcmp(cust[totCustomers].id, cust[i].id) == 0)
             {
                 cout << "The ID entered is already in use.\n";
                 i = totCustomers;
@@ -53,7 +53,7 @@ void readCustomer(Customer cust[MAX])
             else
                 check = false;
         }
-    }while(check && totCustomers > 1);
+    }while(check && totCustomers > 0);
     totCustomers++;
 }
 
