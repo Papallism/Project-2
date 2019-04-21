@@ -21,6 +21,7 @@ struct Customer { //structure for customers
 
 //function prototypes
 void readCustomer(Customer []);
+int totalCustomers();
 
 int main()
 {
@@ -56,6 +57,12 @@ void readCustomer(Customer cust[MAX])
         }
     }while(check && totCustomers > 0);
     totCustomers++;
+    //pending open new account function
+}
+
+int totalCustomers()
+{
+    return totCustomers;
 }
 
 
