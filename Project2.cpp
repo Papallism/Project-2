@@ -22,12 +22,11 @@ struct Customer { //structure for customers
 //function prototypes
 void readCustomer(Customer []);
 int totalCustomers();
+bool findCustomer(Customer [], char []);
 
 int main()
 {
     Customer customers[MAX];
-    readCustomer(customers);
-    readCustomer(customers);
 
     return 0;
 }
@@ -65,6 +64,13 @@ int totalCustomers()
     return totCustomers;
 }
 
+bool findCustomer(Customer cust[], char checkID[10])
+{
+    for(int i = 0; i < totCustomers; i++)
+        if(strcmp(checkID, cust[i].id) == 0)
+            return true;
+    return false;
+}
 
 
 
