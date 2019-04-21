@@ -23,6 +23,7 @@ struct Customer { //structure for customers
 void readCustomer(Customer []);
 int totalCustomers();
 bool findCustomer(Customer [], char []);
+void printAccountDetails(Customer [], int);
 
 int main()
 {
@@ -70,6 +71,23 @@ bool findCustomer(Customer cust[], char checkID[10])
         if(strcmp(checkID, cust[i].id) == 0)
             return true;
     return false;
+}
+
+void printAccountDetails(Customer cust[], int accNum)
+{
+    for(int i = 0; i < totCustomers; i++)
+    {
+        for(int j = 0; j < cust[i].totAccounts; j++)
+        {
+            if(cust[i].accounts[j].number == accNum)
+            {
+                cout << "\nAccount holder name: " << cust[i].name;
+                cout << "\nAccount holder address: " << cust[i].address;
+                cout << "\nAccount holder ID: " << cust[i].id << endl;
+                i = totCustomers;
+            }
+        }
+    }
 }
 
 
