@@ -24,6 +24,7 @@ void readCustomer(Customer []);
 int totalCustomers();
 bool findCustomer(Customer [], char []);
 void printAccountDetails(Customer [], int);
+void printCustomerDetails(Customer [], char []);
 
 int main()
 {
@@ -90,7 +91,25 @@ void printAccountDetails(Customer cust[], int accNum)
     }
 }
 
-
+void printCustomerDetails(Customer cust[], char custID[])
+{
+    for(int i = 0; i < totCustomers; i++)
+    {
+        if(strcmp(custID, cust[i].id) == 0)
+        {
+            cout << "\nCustomer name: " << cust[i].name;
+            cout << "\nCustomer address: " << cust[i].address;
+            for(int j = 0; j < cust[i].totAccounts; j++)
+            {
+                cout << "\nAccount " << j + 1 << ":";
+                cout << "\nAccount number: " << cust[i].accounts[j].number;
+                cout << "\nAccount type: " << cust[i].accounts[j].type;
+                cout << "\nAccount balance: " << cust[i].accounts[j].balance << endl;
+            }
+            i = totCustomers;
+        }
+    }
+}
 
 
 
