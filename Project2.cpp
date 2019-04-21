@@ -5,13 +5,13 @@ using namespace std;
 int totCustomers = 0;
 const int MAX = 100;
 
-struct Account {
+struct Account { //structure for account types
     int number;
     char type[20];
     float balance;
 };
 
-struct Customer {
+struct Customer { //structure for customers
     char name[30];
     char address[50];
     char id[10];
@@ -19,6 +19,7 @@ struct Customer {
     int totAccounts;
 };
 
+//function prototypes
 void readCustomer(Customer []);
 
 int main()
@@ -42,12 +43,12 @@ void readCustomer(Customer cust[MAX])
     {
         cout << "Please enter customer ID: ";
         cin >> cust[totCustomers].id;
-        for(int i = 0; i < totCustomers; i++)
+        for(int i = 0; i < totCustomers; i++) //for-loop checking if ID entered is in use already
         {
             if(strcmp(cust[totCustomers].id, cust[i].id) == 0)
             {
                 cout << "The ID entered is already in use.\n";
-                i = totCustomers;
+                i = totCustomers; //if ID is in use already, assign exit value to i in order to exit for-loop
                 check = true;
             }
             else
