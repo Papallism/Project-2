@@ -1,9 +1,12 @@
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 int totCustomers = 0;
 const int MAX = 100;
+const float MIN_BALANCE = 50.0;
 
 struct Account { //structure for account types
     int number;
@@ -22,9 +25,10 @@ struct Customer { //structure for customers
 //function prototypes
 void readCustomer(Customer []);
 int totalCustomers();
-bool findCustomer(Customer [], char []);
-void printAccountDetails(Customer [], int);
-void printCustomerDetails(Customer [], char []);
+bool findCustomer(const Customer [], const char []);
+void printAccountDetails(const Customer [], const int);
+void printCustomerDetails(const Customer [], const char []);
+void newAccount(Customer [], const char [], const char []);
 
 int main()
 {
@@ -57,8 +61,16 @@ void readCustomer(Customer cust[MAX])
                 check = false;
         }
     }while(check && totCustomers > 0);
+    cust[totCustomers].totAccounts = 0;
+    int num;
+    do
+    {
+        cout << "\nHow many accounts would you like to open?(Maximum limit of accounts is 5) ";
+        cin >> num;
+    }while(num < 0 || num > 5);
+    for(int i = 0; i < num; i++)
+        newAccount(cust, cust[totCustomers].name, cust[totCustomers].id);
     totCustomers++;
-    //pending open new account function
 }
 
 int totalCustomers()
@@ -66,7 +78,7 @@ int totalCustomers()
     return totCustomers;
 }
 
-bool findCustomer(Customer cust[], char checkID[10])
+bool findCustomer(const Customer cust[], const char checkID[10])
 {
     for(int i = 0; i < totCustomers; i++)
         if(strcmp(checkID, cust[i].id) == 0)
@@ -74,7 +86,7 @@ bool findCustomer(Customer cust[], char checkID[10])
     return false;
 }
 
-void printAccountDetails(Customer cust[], int accNum)
+void printAccountDetails(const Customer cust[], const int accNum)
 {
     for(int i = 0; i < totCustomers; i++)
     {
@@ -91,7 +103,7 @@ void printAccountDetails(Customer cust[], int accNum)
     }
 }
 
-void printCustomerDetails(Customer cust[], char custID[])
+void printCustomerDetails(const Customer cust[], const char custID[])
 {
     for(int i = 0; i < totCustomers; i++)
     {
@@ -111,7 +123,69 @@ void printCustomerDetails(Customer cust[], char custID[])
     }
 }
 
-
+void newAccount(Customer cust[], const char custName[], const char custID[])
+{
+    int i = 0;
+    bool check = true;
+    while(i < totCustomers && check)
+    {
+        if(strcmp(cust[i].name, custName) == 0)
+            if(strcmp(cust[i].id, custID) == 0)
+                check = false;
+        i++;
+    }
+    i--;
+    if(check)
+        cout << "\nWrong customer details entered!\n";
+    else
+    {
+        if(cust[i].totAccounts >= 5)
+            cout << "\nMaximum number of accounts reached!\n";
+        else
+        {
+            int choice;
+            bool loop;
+            do
+            {
+                srand(time(0));
+                loop = false;
+                cust[i].accounts[cust[i].totAccounts].number = (rand() % 9999) + 1000;
+                for(int j = 0; j < totCustomers; j++)
+                {
+                    for(int k = 0; j < cust[j].totAccounts; k++)
+                        if(cust[i].accounts[cust[i].totAccounts].number == cust[j].accounts[k].number)
+                            loop = true;
+                }
+            }while(loop);
+            cout << "\nChoose which type of account to open:\n1) Checking Account\n2) Savings Account\n3) Money market Account\n";
+            cout << "\nEnter a number between 1-3: ";
+            cin >> choice;
+            do
+            {
+                switch(choice)
+                {
+                    case 1: strcpy(cust[i].accounts[cust[i].totAccounts].type, "Checking Account");
+                            break;
+                    case 2: strcpy(cust[i].accounts[cust[i].totAccounts].type, "Savings Account");
+                            break;
+                    case 3: strcpy(cust[i].accounts[cust[i].totAccounts].type, "Money market Account");
+                            break;
+                    default: cout << "\nInvalid input!\n";
+                            break;
+                }
+            }while(choice < 1 || choice > 3);
+            float dep;
+            do
+            {
+                cout << "\nPlease enter the amount you wish to deposit: ";
+                cin >> dep;
+                if(dep < MIN_BALANCE)
+                    cout << "\nMinimum balance required is " << MIN_BALANCE << endl;
+            }while(dep < MIN_BALANCE);
+            cust[i].totAccounts++;
+        }
+    }
+}
 
 
 
