@@ -34,6 +34,13 @@ int main()
 {
     Customer customers[MAX];
 
+    readCustomer(customers);
+    cout << totalCustomers();
+    if(findCustomer(customers, "1234"))
+        cout << "findCustomer works\n";
+    printCustomerDetails(customers, "1234");
+    newAccount(customers, "mo salah", "1234");
+
     return 0;
 }
 
