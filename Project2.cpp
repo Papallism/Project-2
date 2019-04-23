@@ -35,11 +35,7 @@ int main()
     Customer customers[MAX];
 
     readCustomer(customers);
-    cout << totalCustomers();
-    if(findCustomer(customers, "1234"))
-        cout << "findCustomer works\n";
-    printCustomerDetails(customers, "1234");
-    newAccount(customers, "mo salah", "1234");
+    cout << totalCustomers() << endl;
 
     return 0;
 }
@@ -142,7 +138,7 @@ void newAccount(Customer cust[], const char custName[], const char custID[])
         i++;
     }
     i--;
-    if(check)
+    if(check && i != -1)
         cout << "\nWrong customer details entered!\n";
     else
     {
